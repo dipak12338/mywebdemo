@@ -1,0 +1,26 @@
+Polling - one request and one response - every second
+	  time driven
+
+Streaming - stay connected on call hole day
+
+
+
+Webhooks- one URL tells other , there is a activity- what info share by which URL
+	Reduce Load
+	Event driven
+
+Example:
+if there is new update, without webhook - u  need to sill connected with cellphone
+	User notification for same.
+	
+GitHub-	on event like =>	It sent status to particular URL.
+	Create new branch 
+	Code push 
+	pull request
+
+
+
+	
+
+
+
