@@ -6,6 +6,12 @@ app = Flask(__name__)
 
 data_storage = []
 
+@app.route('/')
+def hello():
+    return "Hello From Pinnacle"
+
+
+
 @app.route('/addstudent', methods=['POST'])
 def webhook():
     
@@ -48,20 +54,23 @@ def getstudents():
 
 @app.route('/getstudent/<int:id>', methods=['GET'])
 def getstudent(id):
-    for student in data_storage:
-        if student['id'] == id:
-            return jsonify(student), 200
+    # for student in data_storage:
+    #     if student[id] == id:
+    #         #return jsonify(student), 200
+    #         return jsonify({
+    #         'status': 'check',
+    #         'message': 'ok',
+    #         'STUDENT ID': student 
+    #          }), 200
         
         
-    return jsonify({
-        'status': 'error',
-        'message': 'Student not found'
-    }), 404
-    # name_query = request.args.get('name')
-    # id_query = request.args.get('id')
+   
+    name_query = request.args.get('name')
+    #id_query = request.args.get(id)
 
     # print('matching Students ' , name_query)
-    # print('matching Students ' , id_query)
+    print('matching Students ' , name_query)
+    
     # print('Datastorage [0]  ==== ' , data_storage[0])              #prinnting correct
     # print('Datastorage [1]  ==== ' , data_storage['name_query'])
     # print('Datastorage [2]  ==== ' , data_storage['name_query'])
@@ -70,18 +79,19 @@ def getstudent(id):
     #     if 'name' in item:
     #         print(item['name'])
 
+    if name_query:
+        #matching_students = [student for student in data_storage if student['name'] == name_query]
+        matching_students = [student for student in data_storage if student.get('name') == name_query]
+        print('matching Students ' , matching_students)
 
-    # return jsonify({
-    #         'status': 'check',
-    #         'message': 'ok',
-    #         'Students Details': name_query 
-    #     }), 200
+    return jsonify({
+            'status': 'success',
+            'message': 'Students retrieved successfully',
+            'students':     data_storage[0]
+        }), 200
 
 
-    # if name_query:
-    #     #matching_students = [student for student in data_storage if student['name'] == name_query]
-    #     matching_students = [student for student in data_storage if student.get('name') == name_query]
-        
+
     #     print('matching Students ' , matching_students)
 
     # return jsonify({
@@ -95,6 +105,8 @@ def getstudent(id):
     #     'message': 'All students retrieved successfully',
     #     'students': data_storage
     # }), 200
+    
+
 
 
 @app.route('/updatestudent/<int:index>', methods=['PUT'])
